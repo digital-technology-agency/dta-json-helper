@@ -3,11 +3,19 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 )
 
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
 func main() {
+	dat, err := ioutil.ReadFile("data.json")
+	check(err)
 	var types []string
-	input := []byte(`["one","two","many"]`)
-	json.Unmarshal(input, &types)
+	json.Unmarshal(dat, &types)
 	fmt.Printf("%+v", types)
 }
